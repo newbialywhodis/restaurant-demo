@@ -1,0 +1,13 @@
+.logo {
+  text-decoration: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.logoSvg {
+  fill: light-dark(
+    var(--mantine-color-warmOrange-9),
+    var(--mantine-color-warmOrange-0)
+  );
+}

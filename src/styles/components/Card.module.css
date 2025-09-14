@@ -1,0 +1,39 @@
+.card {
+  background-color: var(--mantine-color-surface);
+  border: 1px solid var(--mantine-color-default-border);
+  border-radius: var(--mantine-radius-xl);
+  height: 100%;
+  position: relative;
+  transition: transform 150ms ease, box-shadow 150ms ease,
+    border-color 150ms ease;
+}
+
+.card:hover {
+  box-shadow: var(--mantine-shadow-lg);
+  border-color: var(--mantine-color-warmOrange-outline);
+}
+
+.card[data-variant="filled"] {
+  background-color: var(--mantine-color-warmOrange-light);
+  border-color: light-dark(
+    var(--mantine-color-warmOrange-6),
+    var(--mantine-color-warmOrange-4)
+  );
+}
+
+.card[data-variant="filled"]:hover {
+  background-color: var(--mantine-color-warmOrange-light-hover);
+}
+
+.card[data-variant="outline"] {
+  background-color: transparent;
+  border: 2px solid
+    light-dark(
+      var(--mantine-color-warmOrange-6),
+      var(--mantine-color-warmOrange-4)
+    );
+}
+
+.card[data-variant="outline"]:hover {
+  background-color: var(--mantine-color-warmOrange-outline-hover);
+}

@@ -1,0 +1,8 @@
+.hero {
+  background-color: light-dark(
+    var(--mantine-color-warmBeige-0),
+    var(--mantine-color-surface)
+  );
+  padding: var(--mantine-spacing-xl);
+  border-radius: var(--mantine-radius-xl);
+}

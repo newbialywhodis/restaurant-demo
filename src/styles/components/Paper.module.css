@@ -1,0 +1,64 @@
+.paper {
+  background-color: light-dark(
+    var(--mantine-color-surface),
+    var(--mantine-color-surface)
+  );
+  border: 1px solid
+    light-dark(
+      var(--mantine-color-default-border),
+      var(--mantine-color-default-border)
+    );
+  transition: box-shadow 150ms ease, border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.paper[data-with-shadow="true"] {
+  box-shadow: var(--mantine-shadow-sm);
+}
+
+.paper[data-with-shadow="true"]:hover {
+  box-shadow: var(--mantine-shadow-md);
+}
+
+.headerPaper {
+  background-color: light-dark(rgba(255, 255, 255, 0.7), rgba(42, 34, 24, 0.8));
+  backdrop-filter: blur(7px);
+  border: 1px solid light-dark(rgba(213, 153, 115, 0.2), rgba(74, 66, 56, 0.6));
+}
+
+.contentPaper {
+  background-color: light-dark(
+    var(--mantine-color-surface),
+    var(--mantine-color-surface)
+  );
+  border: 1px solid
+    light-dark(
+      var(--mantine-color-warmBeige-2),
+      var(--mantine-color-darkBorder)
+    );
+}
+
+.subtlePaper {
+  background-color: light-dark(
+    var(--mantine-color-warmBeige-0),
+    rgba(42, 34, 24, 0.5)
+  );
+  border: 1px solid
+    light-dark(var(--mantine-color-warmBeige-1), rgba(74, 66, 56, 0.3));
+}
+
+.elevatedPaper {
+  background-color: light-dark(
+    var(--mantine-color-surface),
+    var(--mantine-color-surface)
+  );
+  box-shadow: var(--mantine-shadow-lg);
+  border: none;
+  transform: translateY(0);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.elevatedPaper:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--mantine-shadow-xl);
+}
