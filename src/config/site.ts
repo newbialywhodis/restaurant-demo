@@ -5,7 +5,7 @@ export const siteConfig = {
     phone: "123-456-789",
     phoneHref: "tel:123-456-789",
     email: "kontakt@ultrakebab.pl",
-    address: "ul. Przykładowa 1, 00-000 Warszawa",
+    address: "ul. XYZ 1, Warszawa",
   },
   openingHours: [
     { day: "Poniedziałek", hours: "12:00 - 21:00" },

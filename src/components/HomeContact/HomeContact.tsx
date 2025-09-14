@@ -62,20 +62,18 @@ export function HomeContact({
         </Group>
       )}
 
-      <Stack pl={withMainIcon && withTitle ? "calc(2.25rem + 1rem)" : 0}>
-        {contactItems.map((item, index) => (
-          <Card key={index} withBorder shadow="sm" radius="md" padding="md">
-            <Group gap="sm">
-              <ThemeIcon size="lg" variant="light">
-                <item.icon size={18} />
-              </ThemeIcon>
-              <Text size="md" fw={500}>
-                {item.text}
-              </Text>
-            </Group>
-          </Card>
-        ))}
-      </Stack>
+      {contactItems.map((item, index) => (
+        <Card key={index} withBorder shadow="sm" radius="md" padding="md">
+          <Group gap="sm">
+            <ThemeIcon size="lg" variant="light">
+              <item.icon size={18} />
+            </ThemeIcon>
+            <Text size="md" fw={500}>
+              {item.text}
+            </Text>
+          </Group>
+        </Card>
+      ))}
     </Stack>
   );
 

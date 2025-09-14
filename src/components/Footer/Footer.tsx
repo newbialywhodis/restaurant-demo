@@ -19,78 +19,75 @@ import { siteConfig } from "@/config/site";
 import { Logo } from "@/components/Logo/Logo";
 import classes from "./Footer.module.css";
 
-interface LinkGroupItem {
-  title: string;
-  links: Array<{
-    title: string;
-    href: string;
-  }>;
-}
+const linkProps = {
+  c: "dimmed" as const,
+  fz: "sm" as const,
+  py: 4,
+  display: "block" as const,
+  underline: "never" as const,
+  className: classes.link,
+};
 
-const LinkGroup = ({ title, links }: LinkGroupItem) => (
+const LinkGroup = ({
+  title,
+  links,
+}: {
+  title: string;
+  links: Array<{ title: string; href: string }>;
+}) => (
   <Box>
     <Text fw="bold" mb="sm">
       {title}
     </Text>
-    {links.map((link) => (
-      <Anchor
-        key={link.href}
-        component={Link}
-        href={link.href}
-        c="dimmed"
-        fz="sm"
-        py={4}
-        display="block"
-        underline="never"
-        className={classes.link}
-      >
-        {link.title}
+    {links.map(({ href, title }) => (
+      <Anchor key={href} component={Link} href={href} {...linkProps}>
+        {title}
       </Anchor>
     ))}
   </Box>
 );
+
+const ContactItem = ({
+  icon: Icon,
+  href,
+  children,
+}: {
+  icon: typeof IconMail;
+  href?: string;
+  children: React.ReactNode;
+}) => {
+  const content = (
+    <Group gap="xs">
+      <Icon size={16} />
+      <span>{children}</span>
+    </Group>
+  );
+
+  return href ? (
+    <Anchor href={href} {...linkProps}>
+      {content}
+    </Anchor>
+  ) : (
+    <Box py={4}>
+      <Text c="dimmed" fz="sm" component="span">
+        {content}
+      </Text>
+    </Box>
+  );
+};
 
 const ContactInfo = () => (
   <Box>
     <Text fw="bold" mb="sm">
       Kontakt
     </Text>
-    <Anchor
-      href={`mailto:${siteConfig.contact.email}`}
-      c="dimmed"
-      fz="sm"
-      py={4}
-      display="block"
-      underline="never"
-      className={classes.link}
-    >
-      <Group gap="xs">
-        <IconMail size={16} />
-        <span>{siteConfig.contact.email}</span>
-      </Group>
-    </Anchor>
-    <Anchor
-      href={siteConfig.contact.phoneHref}
-      c="dimmed"
-      fz="sm"
-      py={4}
-      display="block"
-      underline="never"
-      className={classes.link}
-    >
-      <Group gap="xs">
-        <IconPhone size={16} />
-        <span>{siteConfig.contact.phone}</span>
-      </Group>
-    </Anchor>
-    <Box py={4}>
-      <Group gap="xs">
-        <IconMapPin size={16} />
-        <Text c="dimmed" fz="sm" component="span">
-          {siteConfig.contact.address}
-        </Text>
-      </Group>
-    </Box>
+    <ContactItem icon={IconMail} href={`mailto:${siteConfig.contact.email}`}>
+      {siteConfig.contact.email}
+    </ContactItem>
+    <ContactItem icon={IconPhone} href={siteConfig.contact.phoneHref}>
+      {siteConfig.contact.phone}
+    </ContactItem>
+    <ContactItem icon={IconMapPin}>{siteConfig.contact.address}</ContactItem>
   </Box>
 );
 
@@ -99,53 +96,72 @@ const OpeningHours = () => (
     <Text fw="bold" mb="sm">
       Godziny otwarcia
     </Text>
-    {siteConfig.openingHours.map((item) => (
-      <Flex key={item.day} justify="space-between" py={2}>
+    {siteConfig.openingHours.map(({ day, hours }) => (
+      <Flex key={day} justify="space-between" py={2}>
         <Text fz="sm" c="dimmed">
-          {item.day}
+          {day}
         </Text>
         <Text fz="sm" c="dimmed">
-          {item.hours}
+          {hours}
         </Text>
       </Flex>
     ))}
   </Box>
 );
 
+const PartnersSection = () =>
+  siteConfig.partners?.length ? (
+    <Alert bg="var(--mantine-color-body)" radius="md" p="md">
+      <Flex direction="column" gap="xs">
+        <Text fz="sm" fw="bold">
+          Zamów online:
+        </Text>
+        <Group gap="md">
+          {siteConfig.partners.map(
+            ({ name, orderUrl, logoUrl, logoHeight }) => (
+              <Anchor
+                key={name}
+                href={orderUrl}
+                target="_blank"
+                className={classes.partnerLink}
+              >
+                <Image
+                  src={logoUrl}
+                  alt={name}
+                  h={logoHeight}
+                  w="auto"
+                  style={{ filter: "grayscale(100%)" }}
+                />
+              </Anchor>
+            )
+          )}
+        </Group>
+      </Flex>
+    </Alert>
+  ) : null;
+
 function Footer() {
-  const navigationLinks: LinkGroupItem = {
-    title: "Nawigacja",
-    links: [
-      { title: "Menu", href: "/menu" },
-      { title: "Kontakt", href: "/kontakt" },
-      { title: "O nas", href: "/o-nas" },
-    ],
-  };
+  const navigationLinks = [
+    { title: "Menu", href: "/menu" },
+    { title: "Kontakt", href: "/kontakt" },
+    { title: "O nas", href: "/o-nas" },
+  ];
 
   return (
-    <Container component="footer" className={classes.container} mt={"xl"} fluid>
+    <Container component="footer" className={classes.container} mt="xl" fluid>
       <Container
         size="xl"
-        px={0}
-        py={{
-          base: "xl",
-          sm: "calc(var(--mantine-spacing-xl) * 2)",
-        }}
+        py={{ base: "xl", sm: "calc(var(--mantine-spacing-xl) * 2)" }}
       >
         <Grid>
           <Grid.Col span={{ base: 12, md: 3 }}>
-            <Box>
-              <Logo />
-              <Text c="dimmed" size="sm" mt="sm" maw={250}>
-                {siteConfig.description}
-              </Text>
-            </Box>
+            <Logo />
+            <Text c="dimmed" size="sm" mt="sm" maw={250}>
+              {siteConfig.description}
+            </Text>
           </Grid.Col>
           <Grid.Col span={{ base: 6, md: 3 }}>
-            <LinkGroup
-              title={navigationLinks.title}
-              links={navigationLinks.links}
-            />
+            <LinkGroup title="Nawigacja" links={navigationLinks} />
           </Grid.Col>
           <Grid.Col span={{ base: 6, md: 3 }}>
             <ContactInfo />
@@ -167,36 +183,7 @@ function Footer() {
             © {new Date().getFullYear()} {siteConfig.name}. Wszelkie prawa
             zastrzeżone.
           </Text>
-
-          {siteConfig.partners && siteConfig.partners.length > 0 && (
-            <Box>
-              <Alert bg="var(--mantine-color-body)" radius="md" p="md">
-                <Flex direction="column" gap="xs">
-                  <Text fz="sm" fw="bold">
-                    Zamów online:
-                  </Text>
-                  <Group gap="md">
-                    {siteConfig.partners.map((partner) => (
-                      <Anchor
-                        href={partner.orderUrl}
-                        target="_blank"
-                        key={partner.name}
-                        className={classes.partnerLink}
-                      >
-                        <Image
-                          src={partner.logoUrl}
-                          alt={partner.name}
-                          h={partner.logoHeight}
-                          w="auto"
-                          style={{ filter: "grayscale(100%)" }}
-                        />
-                      </Anchor>
-                    ))}
-                  </Group>
-                </Flex>
-              </Alert>
-            </Box>
-          )}
+          <PartnersSection />
         </Flex>
       </Container>
     </Container>
