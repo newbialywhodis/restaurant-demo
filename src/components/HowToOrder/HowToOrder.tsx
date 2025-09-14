@@ -116,7 +116,7 @@ export function HowToOrder() {
   };
 
   return (
-    <Container size="lg" py="xl" id="how-to-order">
+    <Container size="xl" py="xl" id="how-to-order">
       <motion.div
         initial="hidden"
         whileInView="visible"

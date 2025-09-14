@@ -35,7 +35,7 @@ export function AppShellLayout({ children }: AppShellLayoutProps) {
   ];
 
   return (
-    <AppShell header={{ height: "auto" }} mt={"6rem"} padding="md">
+    <AppShell header={{ height: "auto" }} mt={"6rem"} padding="sm">
       <AppShell.Header bg={"transparent"} withBorder={false}>
         <Container size="xl">
           <Paper
